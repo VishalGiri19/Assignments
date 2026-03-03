@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int T;
+    cin >> T;
+
+    while (T--) {
+        int n;
+        cin >> n;
+
+        vector<long long> arr(n);
+        for (int i = 0; i < n; i++)
+            cin >> arr[i];
+
+        long long key;
+        cin >> key;
+
+        int step = sqrt(n);
+        int prev = 0;
+        long long comparisons = 0;
+
+        while (prev < n && arr[min(step, n) - 1] < key) {
+            comparisons++;
+            prev = step;
+            step += sqrt(n);
+            if (prev >= n)
+                break;
+        }
+
+        for (int i = prev; i < min(step, n); i++) {
+            comparisons++;
+            if (arr[i] == key) {
+                cout << "Present " << comparisons << endl;
+                goto next_case;
+            }
+        }
+
+        cout << "Not Present " << comparisons << endl;
+
+        next_case:;
+    }
+
+    return 0;
+}
